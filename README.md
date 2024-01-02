@@ -11,8 +11,9 @@ More specifically, the script will deploy an NGINX reverse proxy as a Fly.io app
 This script is intended to be run on GNU/Linux or macOS. It should also work under Windows Subsystem for Linux (WSL) on Windows.
 
 - [Fly.io](https://fly.io) account
-- [Fly.io CLI](https://fly.io/docs/getting-started/installing-flyctl/) installed and authenticated
-- [bento.me](https://bento.me) username
+- [Fly.io CLI](https://fly.io/docs/getting-started/installing-flyctl/) installed and [authenticated](https://fly.io/docs/flyctl/auth-login/)
+- [bento.me](https://bento.me) username (e.g., `ivanvmoreno` for `bento.me/ivanvmoreno`)
+- Custom domain (e.g., `ivan.build`), and access to its DNS configuration (recommended: [Cloudflare](https://www.cloudflare.com/))
 
 ## Usage
 
@@ -32,3 +33,5 @@ For example, to deploy a reverse proxy for `bento.me/ivanvmoreno` on `ivan.build
 ```bash
 sh deploy.sh -u ivanvmoreno -d ivan.build
 ```
+
+**Note:** after the SSL certificate is issued, you will need to point your domain to the Fly.io app's IP address. To do so, add an `A` and `AAAA` record to your domain's DNS configuration, pointing to the Fly.io app's IP address, which will be displayed in the script's output. Fly will not issue the SSL certificate until the domain is pointing to the app's IP address. Take into account that DNS propagation may take a few minutes.
