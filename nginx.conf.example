@@ -1,0 +1,48 @@
+user  nginx;
+worker_processes 1;
+error_log  /dev/stderr info;
+pid        /var/run/nginx.pid;
+
+events {
+    worker_connections  4096;
+    multi_accept        on;
+}
+
+http {
+  include       /etc/nginx/mime.types;
+  default_type  application/octet-stream;
+
+  log_format  main_ext  '$remote_addr - $remote_user [$time_local] "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for" '
+                    '"$host" sn="$server_name" '
+                    'rt=$request_time '
+                    'ua="$upstream_addr" us="$upstream_status" '
+                    'ut="$upstream_response_time" ul="$upstream_response_length" '
+                    'cs=$upstream_cache_status' ;
+
+  access_log  /dev/stdout main_ext;
+  sendfile        on;
+  resolver    8.8.8.8;
+
+  proxy_cache_path /tmp/nginx-cache levels=1:2 keys_zone=static:64m max_size=512m use_temp_path=off;
+
+  server {
+    listen 8080;
+    listen [::]:8080;
+    server_name  <DOMAIN>;
+    port_in_redirect        off;
+    proxy_http_version      1.1;
+    proxy_buffering         on;
+
+
+    if ($http_x_forwarded_proto = "http") {
+      return 301 https://$http_host$request_uri;
+    }
+
+    location / {
+      proxy_pass https://bento.me/<USERNAME>;
+      proxy_set_header X-Forwarded-Host $http_host;
+    }
+  }
+}
