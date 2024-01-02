@@ -23,12 +23,12 @@ done
 # if no parameters
 if [ -z "$u" ] || [ -z "$d" ]
 then
-   echo "One or more parameters are missing. Please, check the script help below.";
+   echo "❓ One or more parameters are missing. Please, check the script help below.";
    help
 fi
 
 # remove the old nginx config file if exists
-printf "Removing the old nginx.conf file...\n"
+printf "🗑️ Removing the old nginx.conf file...\n"
 rm -f nginx.conf
 
 # replace the variables in the nginx config file
@@ -36,9 +36,9 @@ printf "Replacing variables in nginx.conf file...\n"
 sed "s|<DOMAIN>|$d|g; s|<USERNAME>|$u|g" nginx.conf.example > nginx.conf
 
 # deploy the app
-printf "Deploying the app...\n"
+printf "🚀 Deploying the app...\n"
 flyctl launch --copy-config
 
 # issue SSL certificate
-printf "Issuing SSL certificate...\n"
+printf "🔐 Issuing SSL certificate...\n"
 flyctl certs add $d -c ./fly.toml

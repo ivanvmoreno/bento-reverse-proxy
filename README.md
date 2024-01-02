@@ -1,10 +1,10 @@
-# bento.me custom domain – Fly.io NGINX reverse proxy
+# Get your 🍱 bento.me custom domain with 🎈 Fly.io
 
 This project provides a script that deploys a [Fly.io](https://fly.io) app acting as a reverse proxy for serving your [bento.me](https://bento.me) site under your custom domain (i.e., `bento.me/<username> -> mydomain.tld`).
 
-This app can be deployed on [Fly.io's free tier](https://fly.io/plans/personal) (Hobby Plan), at no cost.
+💸 This app can be deployed on [Fly.io's free tier](https://fly.io/plans/personal) (Hobby Plan), at no cost.
 
-More specifically, the script will deploy an NGINX reverse proxy as a Fly.io app, pre-configured to serve your bento.me site on your custom domain (with built-in HTTPS redirect), and handle SSL certificate issuing and auto-renewal.
+🤓 More specifically, the script will deploy an NGINX reverse proxy as a Fly.io app, pre-configured to serve your bento.me site on your custom domain (with built-in HTTPS redirect), and handle SSL certificate issuing and auto-renewal.
 
 ## Prerequisites
 
